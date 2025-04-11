@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Forensics - CyberNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            padding: 30px;
+            background: linear-gradient(to right, #1a0000, #2c0000, #1a0000);
+            color: white;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid tomato;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 20px tomato;
+        }
+
+        h2 {
+            text-align: center;
+            color: tomato;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #1e1e2f;
+            color: white;
+            border: 1px solid #444;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: tomato;
+            border: none;
+            color: black;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff6347;
+            transform: scale(1.05);
+        }
+
+        .result-box {
+            background-color: #111;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 5px solid tomato;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            color: #ffb3a7;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: 1px solid tomato;
+            color: tomato;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-radius: 6px;
+        }
+
+        .copy-btn:hover {
+            background-color: tomato;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🧬 Digital Forensics</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <label>Upload File (Image, PDF, etc.):</label>
+            <input type="file" name="file" accept="*/*" required>
+            <button type="submit">Extract Metadata</button>
+        </form>
+
+        {% if result %}
+        <div class="result-box" id="forensicsResult">
+            <button class="copy-btn" onclick="copyForensics()">Copy</button>
+            {{ result }}
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function copyForensics() {
+            const text = document.getElementById('forensicsResult').innerText;
+            navigator.clipboard.writeText(text.replace("Copy", "").trim());
+            alert("Copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>

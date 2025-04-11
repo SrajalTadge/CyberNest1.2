@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CTF Helpers - CyberNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            background: #0f0c29;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            color: white;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid cyan;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 20px cyan;
+        }
+
+        h2 {
+            text-align: center;
+            color: cyan;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #1e1e2f;
+            color: white;
+            border: 1px solid #444;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: cyan;
+            border: none;
+            color: black;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00ffff;
+            transform: scale(1.05);
+        }
+
+        .result-box {
+            background-color: #111;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 5px solid cyan;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            color: #0ff;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: 1px solid cyan;
+            color: cyan;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-radius: 6px;
+        }
+
+        .copy-btn:hover {
+            background-color: cyan;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🔍 CTF Helper Tools</h2>
+        <form method="POST">
+            <label>Enter Encoded Text:</label>
+            <input type="text" name="text" placeholder="e.g. SGVsbG8gd29ybGQ=" required>
+
+            <label>Select Decoder:</label>
+            <select name="base">
+                <option value="base64">Base64</option>
+                <option value="base32">Base32</option>
+                <option value="base85">Base85</option>
+                <option value="hex">Hex</option>
+                <option value="binary">Binary</option>
+                <option value="rot13">ROT13</option>
+                <option value="rot47">ROT47</option>
+                <option value="base58">Base58</option>
+            </select>
+
+            <button type="submit">Decode</button>
+        </form>
+
+        {% if result %}
+        <div class="result-box" id="resultBox">
+            <button class="copy-btn" onclick="copyResult()">Copy</button>
+            {{ result }}
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function copyResult() {
+            const text = document.getElementById('resultBox').innerText;
+            navigator.clipboard.writeText(text.replace("Copy", "").trim());
+            alert("Copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>
